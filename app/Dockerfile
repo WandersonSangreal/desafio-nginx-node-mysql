@@ -4,9 +4,8 @@ WORKDIR /usr/src/app
 
 RUN apt-get update && apt-get install -y wget
 
-COPY ./package.json .
-RUN npm install
 COPY . .
+RUN npm install
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \

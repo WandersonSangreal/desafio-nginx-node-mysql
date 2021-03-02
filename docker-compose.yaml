@@ -6,13 +6,12 @@ services:
       context: ./app
       dockerfile: Dockerfile
     container_name: app
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh node ./src/app.js
     networks: 
       - node-network
     volumes:
       - ./app:/usr/src/app
       - /usr/src/app/node_modules
-    command: npm start
     tty: true
     depends_on: 
       - db
@@ -26,6 +25,8 @@ services:
       - node-network
     ports: 
       - 8080:80
+    depends_on:
+      - app
 
   db:
     image: mysql:5.7
